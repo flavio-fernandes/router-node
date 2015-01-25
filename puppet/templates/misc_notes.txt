@@ -1,0 +1,28 @@
+
+# http://youtu.be/X3QTqdGxXHQ  <== series on doing this on centos
+
+# http://wiki.centos.org/HowTos/Network/IPTables
+
+# http://www.cyberciti.biz/faq/unix-linux-bsd-bind-dns-listenon-configuration/
+
+iptables -L -v
+iptables -L -v -t filter
+iptables -L -v -t nat
+
+iptables -t filter -D INPUT -j REJECT --reject-with icmp-host-prohibited
+
+# allow dns
+-A INPUT -i eth1 -p udp -s 0/0 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# insert rule at specific place
+iptables -t filter -I INPUT 3 -i lo -j ACCEPT
+
+# remove specific rule
+iptables -t filter -D INPUT 3
+
+
+/sbin/service iptables save
+
+========
+
+

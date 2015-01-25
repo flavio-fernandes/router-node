@@ -1,0 +1,10 @@
+<% @dhcp.values.each do |s| -%>
+subnet <%= s["cidr"] -%> netmask <%= s["netmask"] -%> {
+  range <%= s["range_start"] -%> <%= s["range_end"] -%>;
+  option domain-name "<%= s["domain_name"] -%>";
+  option domain-name-servers <%= s["interface_address"] -%>;
+  option routers <%= s["interface_address"] -%>;
+  default-lease-time <%= s["default-lease-time"] -%>;
+  max-lease-time <%= s["max-lease-time"] -%>;
+}
+<% end -%>

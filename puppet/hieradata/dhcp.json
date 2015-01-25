@@ -1,0 +1,14 @@
+{
+  "dhcp": {
+      "subnet_a": {
+         "cidr": "192.168.111.0",
+         "netmask": "255.255.255.0",
+         "range_start": "192.168.111.100",
+         "range_end": "192.168.111.200",
+         "interface_address": "192.168.111.254",
+         "domain_name": "example.com",
+         "default-lease-time": "600",
+         "max-lease-time": "7200"
+      }
+  }
+}
