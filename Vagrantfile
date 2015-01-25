@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # During initial provisioning we expect yum update to get a new kernel. Because of that, we
-  # will be required to rebood the vm. If you rather do that manually, simply comment out provision line below.
+  # will be required to reboot the vm. If you rather do that manually, simply comment out provision line below.
   # Otherwise, simply install the reload plugin in vagrant:  vagrant plugin install vagrant-reload
   config.vm.provision :reload
 
