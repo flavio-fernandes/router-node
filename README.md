@@ -37,7 +37,7 @@ If you need to tweak the default values, these are the files that you will need 
 
 - Vagrantfile
   - node_ex_ip: this is the static ip address assigned to the router interface in the internal network
-  - node.vm.network: this is the internal only network that your clients should use in order to use the router vm
+  - node.vm.network: this is the internal only network that your clients should use in order to reach the router's interface
 
 - puppet/hieradata/* : The json files in this directory contain the values used for dhcpd and dns services.
 
