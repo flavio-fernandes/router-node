@@ -38,7 +38,7 @@ exec { 'Enable dhcpd':
     command => '/sbin/service dhcpd start ; /sbin/chkconfig dhcpd on',
     path    => $::path,
     user    => 'root',
-    require => File['/etc/dhcp/dhcpd.conf'],
+    require => [ Package['dhcp'], File['/etc/dhcp/dhcpd.conf'] ],
 }
 
 file { '/etc/named.conf':
