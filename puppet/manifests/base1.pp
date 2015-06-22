@@ -10,7 +10,7 @@ vcsrepo { '/vagrant/puppet/modules/yum':
     provider => git,
     user     => 'vagrant',
     source   => 'git://github.com/purpleidea/puppet-yum',
-    revision => '74603be28b00a5336e2341d117b407bcbecbc417',
+    revision => 'a5dfa1d0746341d03d0ec1f56173eca96ec0edf2',
     require  => Package['git'],
 }
 
