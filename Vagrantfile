@@ -7,6 +7,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # ip configuration. Also, make sure this is in sync with puppet/hieradata/*
   node_ex_ip = "192.168.111.254"
+  node_ex_ip2 = "192.168.112.254"
+  node_ex_ip3 = "192.168.113.254"
 
   config.vm.provision "puppet" do |puppet|
       puppet.hiera_config_path = "puppet/hiera.yaml"
@@ -38,6 +40,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.hostname = "router-node"
     ## node.vm.network "private_network", ip: "#{node_ex_ip}", virtualbox__intnet: "intnet", auto_config: true
     node.vm.network "private_network", ip: "#{node_ex_ip}", virtualbox__intnet: "mylocalnet", auto_config: true
+    node.vm.network "private_network", ip: "#{node_ex_ip2}", virtualbox__intnet: "mylocalnet2", auto_config: true
+    node.vm.network "private_network", ip: "#{node_ex_ip3}", virtualbox__intnet: "mylocalnet3", auto_config: true
     # http://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
     node.vm.provider :virtualbox do |vb|
       # vb.gui = true

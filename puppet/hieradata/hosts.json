@@ -1,6 +1,8 @@
 {
   "hosts": {
     "router-node": { "name": "router-node", "ipaddress": "127.0.0.1" },
-    "router-node_if": { "name": "router-node_if", "ipaddress": "192.168.111.254" }
+    "router-node_if": { "name": "router-node_if", "ipaddress": "192.168.111.254" },
+    "router-node_if2": { "name": "router-node_if2", "ipaddress": "192.168.112.254" },
+    "router-node_if3": { "name": "router-node_if3", "ipaddress": "192.168.113.254" }
   }
 }

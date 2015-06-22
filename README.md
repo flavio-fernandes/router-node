@@ -11,10 +11,16 @@ get simple vm that routes from a private network using nat.
             -----------------
             | This Router VM |
             -----------------
-                     | Static ip ${node_ex_ip}, [DHCPd], [DNSd]
-                     |
-                     |
-      |------ Internal Network -------|
+               |   |   | Static ip ${node_ex_ip}, [DHCPd], [DNSd]
+               |   |   |
+               |   |   |
+      |------ Internal Network3 -------|
+      vm.network "private_network", type: "dhcp", virtualbox__intnet: "mylocalnet3"
+                   |   |
+      |------ Internal Network2 -------|
+      vm.network "private_network", type: "dhcp", virtualbox__intnet: "mylocalnet2"
+                       |
+      |------ Internal Network --------|
       Connect vms to this net, so they can talk to each
       other and share a dynamic link via nat. To do that, use
       vm.network "private_network", type: "dhcp", virtualbox__intnet: "mylocalnet"

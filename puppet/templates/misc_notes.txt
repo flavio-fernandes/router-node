@@ -11,8 +11,12 @@ iptables -L -v -t nat
 
 iptables -t filter -D INPUT -j REJECT --reject-with icmp-host-prohibited
 
-# allow dns
+# allow dns on eth1 only
 -A INPUT -i eth1 -p udp -s 0/0 --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# allow dns on any interface but eth0
+-A INPUT -i eth0 -p udp -s 0/0 --dport 53 -j REJECT
+-A INPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
 
 # insert rule at specific place
 iptables -t filter -I INPUT 3 -i lo -j ACCEPT
