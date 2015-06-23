@@ -52,7 +52,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
       vb.customize ["modifyvm", :id, "--nictype2", "virtio"]
       # vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
-      # vb.customize ["modifyvm", :id, "--macaddress2", "0000000000FE"]
+      # vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+      # vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
+      vb.customize ["modifyvm", :id, "--macaddress2", "00005E000101"]
+      vb.customize ["modifyvm", :id, "--macaddress3", "00005E000102"]
+      vb.customize ["modifyvm", :id, "--macaddress4", "00005E000103"]
     end
     node.vm.provider "vmware_fusion" do |vf|
       vf.vmx["memsize"] = "128"
