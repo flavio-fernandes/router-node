@@ -9,26 +9,6 @@
          "domain_name": "example.com",
          "default-lease-time": "600",
          "max-lease-time": "7200"
-      },
-      "subnet_b": {
-         "cidr": "192.168.112.0",
-         "netmask": "255.255.255.0",
-         "range_start": "192.168.112.100",
-         "range_end": "192.168.112.200",
-         "interface_address": "192.168.112.254",
-         "domain_name": "example.com",
-         "default-lease-time": "600",
-         "max-lease-time": "7200"
-      },
-      "subnet_c": {
-         "cidr": "192.168.113.0",
-         "netmask": "255.255.255.0",
-         "range_start": "192.168.113.100",
-         "range_end": "192.168.113.200",
-         "interface_address": "192.168.113.254",
-         "domain_name": "example.com",
-         "default-lease-time": "600",
-         "max-lease-time": "7200"
       }
   }
 }
