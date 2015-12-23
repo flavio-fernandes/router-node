@@ -81,7 +81,7 @@ src/
 ### https://raw.github.com/github/gitignore/master/Global/Vagrant.gitignore
 
 .vagrant/
-
+.bundle/
 
 ### https://raw.github.com/github/gitignore/master/Global/SublimeText.gitignore
 
