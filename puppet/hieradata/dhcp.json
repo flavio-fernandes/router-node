@@ -19,6 +19,16 @@
          "domain_name": "example.com",
          "default-lease-time": "600",
          "max-lease-time": "7200"
+      },
+      "subnet_c": {
+         "cidr": "10.10.0.0",
+         "netmask": "255.255.0.0",
+         "range_start": "10.10.0.101",
+         "range_end": "10.10.255.250",
+         "interface_address": "10.10.0.1",
+         "domain_name": "example.com",
+         "default-lease-time": "600",
+         "max-lease-time": "7200"
       }
   }
 }
