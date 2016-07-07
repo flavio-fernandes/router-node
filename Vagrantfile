@@ -39,7 +39,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.6-i386_chef-provisionerless.box"
     end
     node.vm.hostname = "router-node"
-    node.vm.network "public_network", ip: "#{node_bridge_ip}", bridge: "tap1"
+    # node.vm.network "public_network", ip: "#{node_bridge_ip}", bridge: "tap1"
+    # node.vm.network "private_network", ip: "#{node_bridge_ip}", virtualbox__intnet: "net50", auto_config: true
+    node.vm.network "private_network", ip: "#{node_bridge_ip}", auto_config: true
     node.vm.network "private_network", ip: "#{node_ex_ip}", virtualbox__intnet: "mylocalnet", auto_config: true
     node.vm.network "private_network", ip: "#{node_provider_gw}", netmask: "#{node_provider_gw_mask}", virtualbox__intnet: "providernet", auto_config: true
     # http://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
