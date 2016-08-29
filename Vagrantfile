@@ -3,6 +3,24 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  # ssh tinkering...
+  # ref: http://stackoverflow.com/questions/14715678/vagrant-insecure-by-default
+  # ref: https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html
+  config.ssh.insert_key = false
+  ##config.ssh.paranoid = false
+  ##config.ssh.keys_only = false
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
+    config.vm.provision "shell", inline: <<-SCRIPT
+    if [ ! -f /home/vagrant/.ssh/id_rsa.pub ] ; then
+        mkdir -pv /home/vagrant/.ssh
+        ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -N ''
+    fi
+    cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+    printf "%s\n" "#{File.read("#{ENV['HOME']}/.ssh/id_rsa.pub")}" >> /home/vagrant/.ssh/authorized_keys
+    chown -R vagrant:vagrant /home/vagrant/.ssh
+    chmod 600 /home/vagrant/.ssh/id_rsa
+  SCRIPT
+
   config.vm.provision "shell", path: "puppet/scripts/bootstrap.sh"
 
   # ip configuration. Also, make sure this is in sync with puppet/hieradata/*
