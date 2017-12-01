@@ -21,6 +21,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chmod 600 /home/vagrant/.ssh/id_rsa
   SCRIPT
 
+  # config.vm.provision "shell", path: "puppet/scripts/install_newer_ruby.sh"
+  # config.vm.provision "shell", path: "puppet/scripts/install_ruby193.sh"
+  # config.vm.provision "shell", path: "puppet/scripts/install_ruby193_rpm.sh"
+  config.vm.provision "shell", path: "puppet/scripts/build_ruby193.sh"
   config.vm.provision "shell", path: "puppet/scripts/bootstrap.sh"
 
   # ip configuration. Also, make sure this is in sync with puppet/hieradata/*
@@ -37,25 +41,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ## puppet.module_path = "puppet/modules"
       puppet.manifest_file  = "base1.pp"
   end
-  config.vm.provision "puppet" do |puppet|
-      puppet.hiera_config_path = "puppet/hiera.yaml"
-      puppet.working_directory = "/vagrant/puppet"
-      puppet.manifests_path = "puppet/manifests"
-      puppet.module_path = "puppet/modules"
-      puppet.manifest_file  = "base2.pp"
-  end
+  #config.vm.provision "puppet" do |puppet|
+  #    puppet.hiera_config_path = "puppet/hiera.yaml"
+  #    puppet.working_directory = "/vagrant/puppet"
+  #    puppet.manifests_path = "puppet/manifests"
+  #    puppet.module_path = "puppet/modules"
+  #    puppet.manifest_file  = "base2.pp"
+  #end
 
   # During initial provisioning we expect yum update to get a new kernel. Because of that, we
   # will be required to reboot the vm. If you rather do that manually, simply comment out provision line below.
   # Otherwise, simply install the reload plugin in vagrant:  vagrant plugin install vagrant-reload
-  config.vm.provision :reload
+  #config.vm.provision :reload
 
   config.vm.define "router-node", primary: true, autostart: true do |node|
-    node.vm.box = "centos6.6-i386"
-    node.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6-i386_chef-provisionerless.box"
-    node.vm.provider "vmware_fusion" do |v, override|
-      override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.6-i386_chef-provisionerless.box"
-    end
+    node.vm.box = "bento/centos-6.7"
+    #node.vm.box = "centos6.6-i386"
+    #node.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6-i386_chef-provisionerless.box"
+    #node.vm.provider "vmware_fusion" do |v, override|
+    #  override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.6-i386_chef-provisionerless.box"
+    #end
     node.vm.hostname = "router-node"
     # node.vm.network "public_network", ip: "#{node_bridge_ip}", bridge: "tap1"
     # node.vm.network "private_network", ip: "#{node_bridge_ip}", virtualbox__intnet: "net50", auto_config: true
@@ -65,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # http://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
     node.vm.provider :virtualbox do |vb|
       # vb.gui = true
-      vb.customize ["modifyvm", :id, "--memory", "128"]
+      vb.customize ["modifyvm", :id, "--memory", "512"]
       vb.customize ["modifyvm", :id, "--cpus", "1"]
       vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
       vb.customize ["modifyvm", :id, "--audio", "none"]
@@ -81,7 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--macaddress4", "00005E000103"]
     end
     node.vm.provider "vmware_fusion" do |vf|
-      vf.vmx["memsize"] = "128"
+      vf.vmx["memsize"] = "512"
     end
     # node.vm.provision "puppet" do |puppet|
     #   puppet.hiera_config_path = "puppet/hiera.yaml"
