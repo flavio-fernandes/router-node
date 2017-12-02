@@ -10,14 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   node_ex_ip2 = "192.168.112.254"
   node_ex_ip3 = "192.168.113.254"
 
-  config.vm.provision "puppet" do |puppet|
-      puppet.hiera_config_path = "puppet/hiera.yaml"
-      puppet.working_directory = "/vagrant/puppet"
-      puppet.manifests_path = "puppet/manifests"
-      ## no module path added here, as this manifest populates the puppet modules directory
-      ## puppet.module_path = "puppet/modules"
-      puppet.manifest_file  = "base1.pp"
-  end
+  config.vm.provision "shell", path: "puppet/scripts/base1.sh"
   config.vm.provision "puppet" do |puppet|
       puppet.hiera_config_path = "puppet/hiera.yaml"
       puppet.working_directory = "/vagrant/puppet"
@@ -32,11 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :reload
 
   config.vm.define "router-node", primary: true, autostart: true do |node|
-    node.vm.box = "centos6.6-i386"
-    node.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6-i386_chef-provisionerless.box"
-    node.vm.provider "vmware_fusion" do |v, override|
-      override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.6-i386_chef-provisionerless.box"
-    end
+    node.vm.box = "bento/centos-6.7"
     node.vm.hostname = "router-node"
     ## node.vm.network "private_network", ip: "#{node_ex_ip}", virtualbox__intnet: "intnet", auto_config: true
     node.vm.network "private_network", ip: "#{node_ex_ip}", virtualbox__intnet: "mylocalnet", auto_config: true
