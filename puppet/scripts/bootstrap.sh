@@ -24,6 +24,6 @@ fi
 
 /bin/echo "Puppet installed!"
 
-# Installing Puppet Modules
-puppet module install puppetlabs/vcsrepo
-puppet module install puppetlabs/stdlib
+## # Installing Puppet Modules
+## puppet module install puppetlabs/vcsrepo
+## puppet module install puppetlabs/stdlib

@@ -5,7 +5,7 @@ chmod 755 ./bootstrap.sh
 
 cat <<EOT >> ./bootstrap.sh
 
-# Installing Puppet Modules
-puppet module install puppetlabs/vcsrepo
-puppet module install puppetlabs/stdlib
+## # Installing Puppet Modules
+## puppet module install puppetlabs/vcsrepo
+## puppet module install puppetlabs/stdlib
 EOT

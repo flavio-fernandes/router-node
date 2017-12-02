@@ -16,4 +16,3 @@ for x in auditd kdump mdmonitor nfslock rpcgssd; do chkconfig ${x} off ; done
 
 # Enable services we know we want, others will be added later
 for x in iptables ; do chkconfig ${x} on ; done
-

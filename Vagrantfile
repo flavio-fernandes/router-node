@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.provision "shell", path: "puppet/scripts/install_newer_ruby.sh"
   # config.vm.provision "shell", path: "puppet/scripts/install_ruby193.sh"
   # config.vm.provision "shell", path: "puppet/scripts/install_ruby193_rpm.sh"
-  config.vm.provision "shell", path: "puppet/scripts/build_ruby193.sh"
+  # config.vm.provision "shell", path: "puppet/scripts/build_ruby193.sh"
   config.vm.provision "shell", path: "puppet/scripts/bootstrap.sh"
 
   # ip configuration. Also, make sure this is in sync with puppet/hieradata/*
@@ -41,18 +41,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ## puppet.module_path = "puppet/modules"
       puppet.manifest_file  = "base1.pp"
   end
-  #config.vm.provision "puppet" do |puppet|
-  #    puppet.hiera_config_path = "puppet/hiera.yaml"
-  #    puppet.working_directory = "/vagrant/puppet"
-  #    puppet.manifests_path = "puppet/manifests"
-  #    puppet.module_path = "puppet/modules"
-  #    puppet.manifest_file  = "base2.pp"
-  #end
+  config.vm.provision "puppet" do |puppet|
+      puppet.hiera_config_path = "puppet/hiera.yaml"
+      puppet.working_directory = "/vagrant/puppet"
+      puppet.manifests_path = "puppet/manifests"
+      puppet.module_path = "puppet/modules"
+      puppet.manifest_file  = "base2.pp"
+  end
 
   # During initial provisioning we expect yum update to get a new kernel. Because of that, we
   # will be required to reboot the vm. If you rather do that manually, simply comment out provision line below.
   # Otherwise, simply install the reload plugin in vagrant:  vagrant plugin install vagrant-reload
-  #config.vm.provision :reload
+  config.vm.provision :reload
 
   config.vm.define "router-node", primary: true, autostart: true do |node|
     node.vm.box = "bento/centos-6.7"
