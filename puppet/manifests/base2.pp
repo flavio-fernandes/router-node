@@ -81,10 +81,13 @@ exec { 'Yum Update':
     timeout => 0,
 }
 
-# http://projects.puppetlabs.com/issues/5175
-yum::package { '@Development tools':
-   ensure => installed,
-   require  => Exec['Yum Update'],
+exec { 'Yum Development tools':
+    command => 'yum groupinstall -y "Development Tools"',
+    cwd     => '/home/vagrant',
+    path    => $::path,
+    user    => 'root',
+    require  => Exec['Yum Update'],
+    timeout => 0,
 }
 
 # http://puppetcookbook.com/posts/exec-onlyif.html
@@ -94,5 +97,5 @@ exec { 'VboxAdd Setup':
   path     => $::path,
   user     => 'vagrant',
   onlyif   => [ '/usr/bin/test -f /etc/init.d/vboxadd' ],
-  require  => Yum::Package['@Development tools'],
+  require  => Exec['Yum Development tools'],
 }
